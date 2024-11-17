@@ -1,7 +1,16 @@
-var builder = WebApplication.CreateBuilder(args);
+using elFinder.NetCore.Models.Commands;
+using Microsoft.CodeAnalysis.Options;
+using Microsoft.EntityFrameworkCore;
+using WebWooden.Models;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<WoodContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,5 +31,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

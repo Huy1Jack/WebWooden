@@ -1,0 +1,6 @@
+﻿@model IEnumerable<WebWooden.Models.TbMenu>
+@foreach(var item in Model.Where(i=>i.Levels == 1))
+{
+	<li><a href="about.html"> @item.Title </a></li>
+	
+}

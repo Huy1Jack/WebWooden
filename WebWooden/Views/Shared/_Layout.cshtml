@@ -1,49 +1,94 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebWooden</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebWooden.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebWooden</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - WebWooden - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- Slick -->
+	<link rel="stylesheet" type="text/css" href="~/slick/slick/slick.css" />
+	<link rel="stylesheet" type="text/css" href="~/slick/slick/slick-theme.css" />
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="~/css/global.css">
+	<link rel="stylesheet" type="text/css" href="~/css/style.css">
+	<link rel="stylesheet" type="text/css" href="~/css/responsive.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+	<link rel="icon" href="~/images/AnhCat/logo.png" type="image/png">
+	<title>Xưởng Mộc Giá Tốt</title>
+</head>
+
+<body>
+	<div id="main-content" class="wrap">
+		@RenderBody()
+	</div>
+
+	<div id="search-nav" class="search-sidebar search-form-wrapper">
+		<div id="site-search" class="site-nav-container search-form-open">
+			<div class="site-nav-container-last">
+				<p class="title">Tìm kiếm</p>
+				<div class="search-box wpo-wrapper-search">
+					<form action="/search" class="searchform searchform-categoris ultimate-search navbar-form">
+						<div class="wpo-search-inner">
+							<input type="hidden" name="type" value="product">
+							<input required="" id="inputSearchAuto" name="q" maxlength="40" autocomplete="off"
+								   class="searchinput input-search search-input" type="text" size="20"
+								   placeholder="Tìm kiếm sản phẩm...">
+						</div>
+						<button type="submit" class="btn-search btn" id="search-header-btn">
+							<i class="fas fa-search"></i>
+						</button>
+					</form>
+
+				</div>
+			</div>
+		</div>
+		<button id="site-close-handle" class="site-close-handle" aria-label="Đóng" title="Đóng">
+			<span class="hamburger-menu active" aria-hidden="true">
+				<span class="bar animate">
+					<a href="" id="close-search">X</a>
+				</span>
+			</span>
+		</button>
+	</div>
+	<div id="site-overlay" class="site-overlay"></div>
 </body>
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/bf61fecb7c.js" crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+<!-- JQuery -->
+<script type="text/javascript" src="~/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="~/js/jquery-migrate-1.2.1.min.js"></script>
+<!-- Slick -->
+<script type="text/javascript" src="~/slick/slick/slick.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+<script>
+	document.getElementById('site-close-handle').addEventListener('click', function () {
+		// Đóng class search-sidebar
+		document.getElementById('search-nav').classList.remove('search-sidebar');
+		// Hoặc ẩn phần tử
+		// document.getElementById('search-nav').style.display = 'none';
+
+		// Mở class chính bằng cách thêm class mới vào body
+		document.body.classList.add('box-body');
+	});
+
+
+
+</script>
+<!-- Script -->
+<script type="text/javascript" src="~/js/javascript.js"></script>
+
 </html>

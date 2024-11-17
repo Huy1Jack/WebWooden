@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebWooden.Models.TbProduct>
+
+
+@foreach (var item in Model)
+{
+    string sUrl = $"/product/{item.Alias}-{item.ProductId}.html";
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="product">
+            <div class="img">
+                <a href="@sUrl">
+                    <img src="~/images/AnhCat/@item.Image" alt="@item.Alias" class="img-fluid">
+                </a>
+            </div>
+            <div class="info">
+                <p class="name"> <a href="#">@item.Title</a>   </p>
+                <p class="vote">
+                    @for (var i = 0; i <= @item.Star; i++)
+                    {
+                        <span><i class="fas fa-star"></i></span>
+                    }
+                </p>
+                <p class="desc">@item.Description </p>
+
+                <p class="price">
+                    <span>
+                        @if (item.PriceSale == 0)
+                        {
+                            <span class="new-price">@item.Price đ</span>
+                        }
+                        else
+                        {
+                            <span class="new-price">@item.PriceSale đ</span>
+
+                        }
+                    </span> VNĐ
+                </p>
+            </div>
+        </div>
+    </div>
+}

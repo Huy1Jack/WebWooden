@@ -1,7 +1,7 @@
-﻿@* @{
+﻿@{
 	List<TbProductCategory> productCategories = ViewBag.productCategories;
 	List<TbNews> tbNews = ViewBag.News;
-} *@
+}
 <header class="">
 	<nav class="container">
 		<div class="logo">
@@ -96,7 +96,7 @@
 <div class="content-wrap container">
 	<div class="categories">
 		<div class="categories">
-			@* @foreach (var item in productCategories.Take(8))
+			@foreach (var item in productCategories.Take(8))
 			{
 
 				<div class="category-item">
@@ -108,13 +108,13 @@
 					</a>
 				</div>
 
-			} *@
+			}
 		</div>
 	</div>
 	<!-- HOT PRODUCT -->
 	<div class="box-product">
 		<div class="row">
-			@* @await Component.InvokeAsync("Product") *@
+			@await Component.InvokeAsync("Product")
 		</div>
 	</div>
 		@* <div class="hot-product-wrap">

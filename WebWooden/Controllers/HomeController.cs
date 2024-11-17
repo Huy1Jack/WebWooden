@@ -2,19 +2,23 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebWooden.Models;
 
-namespace WebWooden.Controllers
+
+namespace wooden.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly WoodContext _Context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(WoodContext context, ILogger<HomeController> logger)
         {
+            _Context = context;
             _logger = logger;
         }
-
         public IActionResult Index()
         {
+            ViewBag.productCategories = _Context.TbProductCategories.ToList();
+            ViewBag.tbNews = _Context.TbNews.OrderByDescending(m => m.NewId).ToList();
             return View();
         }
 

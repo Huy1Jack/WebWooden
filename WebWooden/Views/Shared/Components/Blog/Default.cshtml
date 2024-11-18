@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TbNews>
+
+
+@foreach (var item in Model.Take(3))
+{
+	<li class="d-flex">
+		<div class="img">
+			<img src="~/images/AnhCat/@item.Image" alt="@item.Detail">
+		</div>
+		<div class="content">
+			<p class="title">
+				<a href="#">
+					@item.Title
+				</a>
+			</p>
+			<div class="desc sub-news-content">
+				@item.Description
+			</div>
+		</div>
+	</li>
+
+}

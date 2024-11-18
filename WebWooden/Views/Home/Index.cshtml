@@ -112,17 +112,17 @@
 		</div>
 	</div>
 	<!-- HOT PRODUCT -->
-	<div class="box-product">
+	@* <div class="box-product">
 		<div class="row">
 			@await Component.InvokeAsync("Product")
 		</div>
-	</div>
-		@* <div class="hot-product-wrap">
+	</div> *@
+		<div class="hot-product-wrap">
 		<h2 class="header-prd"> Sản phẩm nổi bật </h2>
 		<div class="product-item-wrap row">
 		@await Component.InvokeAsync("Product")
 		</div>
-		</div> *@
+		</div>
 </div>
 
 
@@ -252,7 +252,7 @@
 
 			<div class="col-lg-5 ">
 				<ul>
-					@* @await Component.InvokeAsync("News") *@
+					@await Component.InvokeAsync("Blog")
 				</ul>
 				<div>
 					<a href="#" class="see-more"> Xem thêm <i class="fas fa-long-arrow-alt-right"></i></a>

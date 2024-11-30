@@ -32,10 +32,10 @@ namespace Harmic.Controllers
 				return NotFound();
 			}
 
-			//// Gán danh sách bình luận đúng kiểu vào ViewBag
-			//ViewBag.blogComment = await _context.TbBlogComments
-			//	.Where(c => c.BlogId == id)
-			//	.ToListAsync();
+			// Gán danh sách bình luận đúng kiểu vào ViewBag
+			ViewBag.blogComment = await _context.TbBlogComments
+				.Where(c => c.BlogId == id)
+				.ToListAsync();
 
 			return View(blog);
 		}

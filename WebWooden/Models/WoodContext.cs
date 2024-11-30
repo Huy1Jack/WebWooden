@@ -15,7 +15,11 @@ public partial class WoodContext : DbContext
     {
     }
 
-    public virtual DbSet<TbAccount> TbAccounts { get; set; }
+    public virtual DbSet<TbBlog> TbBlogs { get; set; }
+
+    public virtual DbSet<TbBlogComment> TbBlogComments { get; set; }
+
+    public virtual DbSet<TbCategory> TbCategories { get; set; }
 
     public virtual DbSet<TbMenu> TbMenus { get; set; }
 
@@ -33,21 +37,58 @@ public partial class WoodContext : DbContext
 
     public virtual DbSet<TbProductReview> TbProductReviews { get; set; }
 
-    
+    public virtual DbSet<TbUser> TbUsers { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("data source= DESKTOP-VLQM3MM; initial catalog=wood; integrated security=True; TrustServerCertificate=True;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<TbAccount>(entity =>
+        modelBuilder.Entity<TbBlog>(entity =>
         {
-            entity.HasKey(e => e.AccountId);
+            entity.HasKey(e => e.BlogId);
 
-            entity.ToTable("tb_Account");
+            entity.ToTable("tb_Blog");
 
+            entity.Property(e => e.Alias).HasMaxLength(255);
+            entity.Property(e => e.CreatedBy).HasMaxLength(255);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Description).HasMaxLength(255);
+            entity.Property(e => e.Detail).HasMaxLength(255);
+            entity.Property(e => e.Image).HasMaxLength(255);
+            entity.Property(e => e.ModifiedBy).HasMaxLength(255);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.SeoDescription).HasMaxLength(255);
+            entity.Property(e => e.SeoKeywords).HasMaxLength(255);
+            entity.Property(e => e.SeoTitle).HasMaxLength(255);
+            entity.Property(e => e.Title).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<TbBlogComment>(entity =>
+        {
+            entity.HasKey(e => e.CommentId);
+
+            entity.ToTable("tb_BlogComment");
+
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Detail).HasMaxLength(255);
             entity.Property(e => e.Email).HasMaxLength(255);
-            entity.Property(e => e.FullName).HasMaxLength(255);
-            entity.Property(e => e.LastLogin).HasColumnType("datetime");
-            entity.Property(e => e.Password).HasMaxLength(255);
+            entity.Property(e => e.Image)
+                .HasMaxLength(255)
+                .HasColumnName("image");
+            entity.Property(e => e.Name).HasMaxLength(255);
             entity.Property(e => e.Phone).HasMaxLength(20);
-            entity.Property(e => e.Username).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<TbCategory>(entity =>
+        {
+            entity.HasKey(e => e.CategoryId);
+
+            entity.ToTable("tb_Category");
+
+            entity.Property(e => e.CreatedBy).HasColumnType("datetime");
+            entity.Property(e => e.ModifiedBy).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<TbMenu>(entity =>
@@ -179,6 +220,19 @@ public partial class WoodContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.TbProductReviews)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK__tb_Produc__Produ__46E78A0C");
+        });
+
+        modelBuilder.Entity<TbUser>(entity =>
+        {
+            entity.HasKey(e => e.UserId);
+
+            entity.ToTable("tb_User");
+
+            entity.Property(e => e.UserId).HasColumnName("UserID");
+            entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.IsActive).HasColumnName("isActive");
+            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.UserName).HasMaxLength(50);
         });
 
         OnModelCreatingPartial(modelBuilder);

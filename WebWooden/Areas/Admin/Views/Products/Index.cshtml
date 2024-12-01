@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebWooden.Models.TbMenu>
+﻿@model IEnumerable<WebWooden.Models.TbProduct>
 
 @{
     ViewData["Title"] = "Index";
@@ -38,11 +38,15 @@
                                     <tr>
                                         <th>STT</th>
                                         <th>Tiêu đề</th>
-                                        <th>Alias</th>
-                                        <th>Cấp</th>
-                                        <th>Vị trí</th>
-                                        <th>Hiện</th>
-                                        <th></th>
+                                        <th>Mã danh mục sản phẩm</th>
+                                        <th>Ảnh</th>
+                                        <th>Giá trước</th>
+                                        <th>Giá sau </th>
+                                        <th>Chất lượng</th>
+                                        <th>Sản phẩm mới</th>
+                                        <th>Sản phẩm bán chạy</th>
+                                        <th>Đánh giá</th>
+                                        <th>Trạng thái</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,18 +58,19 @@
                                         <tr>
                                             <td>@(i++)</td>
                                             <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Alias)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Levels)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Position)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.CategoryProductId)</td>
+                                            <td><img src="~/images/AnhCat/@Html.DisplayFor(modelItem => item. Image)" width="50" hight="50" /></td>
+                                            <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.PriceSale)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                                            <td>@Html.CheckBoxFor(modelItem => item.IsNew, new { @disabled = "disabled" })</td>
+                                            <td>@Html.CheckBoxFor(modelItem => item.IsBestSeller, new { @disabled = "disabled" })</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Star)</td>
+                                            <td>@Html.CheckBoxFor(modelItem => item.IsActive, new { @disabled = "disabled" })</td>
                                             <td>
-                                                @Html.CheckBoxFor(modelItem => item.IsActive, new { @disabled = "disabled" })
-                                            </td>
-
-
-                                            <td>
-                                                <a asp-action="Edit" asp-route-id="@item.MenuId" class="btn btn-primary">Sửa</a>
-                                                <a asp-action="Details" asp-route-id="@item.MenuId" class="btn btn-info">Chi tiết</a>
-                                                <a asp-action="Delete" asp-route-id="@item.MenuId" class="btn btn-danger">Xóa</a>
+                                                <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary">Sửa</a>
+                                                 <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info">Chi tiết</a>
+                                                <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger">Xóa</a>
 
                                             </td>
                                         </tr>

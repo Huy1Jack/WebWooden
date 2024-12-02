@@ -1,4 +1,4 @@
-/*---------------INDEX------------------*/
+﻿/*---------------INDEX------------------*/
 /*BANNER*/
 .banner {
 	width: 100%;
@@ -266,8 +266,8 @@
 }
 
 .news li img {
-	width: 8em;
-	height: 7.5em;
+	width: 12em;
+	height: 7em;
 }
 
 .news .content {
@@ -1148,3 +1148,36 @@ table tr td:first-child, table tr th:first-child {
     padding: 8px;
     line-height: 1.42857143;
 }
+.star-rating {
+	display: flex;
+	font-size: 40px;
+	color: #ddd;
+	cursor: pointer;
+	direction: rtl; /* Đảo ngược hướng hiển thị từ phải qua trái */
+	justify-content: left; /* Căn các sao sát bên trái */
+	padding: 0 !important;
+}
+
+	.star-rating input {
+		display: none;
+	}
+
+	.star-rating label {
+		padding: 0 5px;
+		transition: color 0.9s ease;
+	}
+
+		.star-rating label:before {
+			content: '☆'; /* Ngôi sao trống */
+		}
+
+	.star-rating input:checked ~ label:before {
+		content: '★'; /* Ngôi sao đầy */
+	}
+
+	/* Hiệu ứng hover và chọn sao */
+	.star-rating label:hover,
+	.star-rating input:checked ~ label:hover,
+	.star-rating input:checked ~ label:hover ~ label {
+		color: gold;
+	}

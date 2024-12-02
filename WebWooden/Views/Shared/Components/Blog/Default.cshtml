@@ -3,13 +3,14 @@
 
 @foreach (var item in Model.Take(3))
 {
+	string sUrl = $"/blog/{item.Alias}-{item.BlogId}.html";
 	<li class="d-flex">
 		<div class="img">
 			<img src="~/images/AnhCat/@item.Image" alt="@item.Detail">
 		</div>
 		<div class="content">
 			<p class="title">
-				<a href="#">
+				<a href="@sUrl">
 					@item.Title
 				</a>
 			</p>

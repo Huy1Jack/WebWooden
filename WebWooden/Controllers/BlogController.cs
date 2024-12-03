@@ -52,7 +52,6 @@ namespace Harmic.Controllers
 			comment.CreatedDate = DateTime.Now;
 			comment.BlogId = idblog;
 			comment.IsActive = true;
-
 			_context.Add(comment);
 			_context.SaveChanges();
 			string url = $"/blog/{aliasblog}-{idblog}.html";

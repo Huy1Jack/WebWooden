@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebWooden.Models;
+namespace WebWooden.Areas.Admin.Models;
 
+[Table("tbUser")]
 public partial class TbUser
 {
+
     public int UserId { get; set; }
 
     public string? UserName { get; set; }

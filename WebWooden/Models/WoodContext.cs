@@ -22,6 +22,8 @@ public partial class WoodContext : DbContext
 
     public virtual DbSet<TbCategory> TbCategories { get; set; }
 
+    public virtual DbSet<TbCustomer> TbCustomers { get; set; }
+
     public virtual DbSet<TbMenu> TbMenus { get; set; }
 
     public virtual DbSet<TbNews> TbNews { get; set; }
@@ -39,6 +41,8 @@ public partial class WoodContext : DbContext
     public virtual DbSet<TbProductReview> TbProductReviews { get; set; }
 
     public virtual DbSet<TbUser> TbUsers { get; set; }
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TbBlog>(entity =>
@@ -87,6 +91,25 @@ public partial class WoodContext : DbContext
             entity.Property(e => e.ModifiedBy).HasColumnType("datetime");
         });
 
+        modelBuilder.Entity<TbCustomer>(entity =>
+        {
+            entity.HasKey(e => e.CustomerId);
+
+            entity.ToTable("tb_Customer");
+
+            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+            entity.Property(e => e.CustomerName)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.IsActive).HasColumnName("isActive");
+            entity.Property(e => e.Password)
+                .HasMaxLength(50)
+                .IsFixedLength();
+        });
+
         modelBuilder.Entity<TbMenu>(entity =>
         {
             entity.HasKey(e => e.MenuId);
@@ -123,15 +146,19 @@ public partial class WoodContext : DbContext
 
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.Address).HasMaxLength(255);
-            entity.Property(e => e.Code).HasMaxLength(50);
             entity.Property(e => e.CreatedBy).HasMaxLength(255);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.CustomerName).HasMaxLength(255);
             entity.Property(e => e.ModifiedBy).HasMaxLength(255);
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
             entity.Property(e => e.OrderStatusId).HasColumnName("OrderStatusID");
             entity.Property(e => e.Phone).HasMaxLength(50);
             entity.Property(e => e.TotalAmount).HasColumnType("decimal(18, 2)");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.TbOrders)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("FK_tb_Order_tb_Customer");
 
             entity.HasOne(d => d.OrderStatus).WithMany(p => p.TbOrders)
                 .HasForeignKey(d => d.OrderStatusId)
@@ -170,16 +197,11 @@ public partial class WoodContext : DbContext
 
             entity.ToTable("tb_Product");
 
-            entity.Property(e => e.Alias).HasMaxLength(255);
-            entity.Property(e => e.CreatedBy).HasMaxLength(255);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Image).HasMaxLength(255);
-            entity.Property(e => e.ModifiedBy).HasMaxLength(255);
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.PriceSale).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Star).HasColumnType("decimal(3, 2)");
-            entity.Property(e => e.Title).HasMaxLength(255);
 
             entity.HasOne(d => d.CategoryProduct).WithMany(p => p.TbProducts)
                 .HasForeignKey(d => d.CategoryProductId)
@@ -192,13 +214,8 @@ public partial class WoodContext : DbContext
 
             entity.ToTable("tb_ProductCategory");
 
-            entity.Property(e => e.Alias).HasMaxLength(255);
-            entity.Property(e => e.CreatedBy).HasMaxLength(255);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Icon).HasMaxLength(255);
-            entity.Property(e => e.ModifiedBy).HasMaxLength(255);
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
-            entity.Property(e => e.Title).HasMaxLength(255);
         });
 
         modelBuilder.Entity<TbProductReview>(entity =>
@@ -208,8 +225,6 @@ public partial class WoodContext : DbContext
             entity.ToTable("tb_ProductReview");
 
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Email).HasMaxLength(255);
-            entity.Property(e => e.Name).HasMaxLength(255);
             entity.Property(e => e.Phone).HasMaxLength(20);
             entity.Property(e => e.Star).HasColumnType("decimal(3, 2)");
 

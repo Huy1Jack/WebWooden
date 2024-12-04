@@ -7,7 +7,7 @@ public partial class TbOrder
 {
     public int OrderId { get; set; }
 
-    public string? Code { get; set; }
+    public int? CustomerId { get; set; }
 
     public string? CustomerName { get; set; }
 
@@ -28,6 +28,8 @@ public partial class TbOrder
     public DateTime? ModifiedDate { get; set; }
 
     public string? ModifiedBy { get; set; }
+
+    public virtual TbCustomer? Customer { get; set; }
 
     public virtual TbOrderStatus? OrderStatus { get; set; }
 

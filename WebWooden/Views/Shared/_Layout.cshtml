@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<WebWooden.Models.TbProduct>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +7,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<!-- Slick -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+
+	<link rel="stylesheet" type="text/css" href="~/slick/slick/slick.less" />
 	<link rel="stylesheet" type="text/css" href="~/slick/slick/slick.css" />
+	<link rel="stylesheet" type="text/css" href="~/slick/slick/slick.scss" />
 	<link rel="stylesheet" type="text/css" href="~/slick/slick/slick-theme.css" />
+	<link rel="stylesheet" type="text/css" href="~/slick/slick/slick-theme.less" />
+	<link rel="stylesheet" type="text/css" href="~/slick/slick/slick-theme.scss" />
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="~/css/global.css">
 	<link rel="stylesheet" type="text/css" href="~/css/style.css">
@@ -18,10 +26,6 @@
 
 	<link rel="icon" href="~/images/AnhCat/logo.png" type="image/png">
 	<title>Xưởng Mộc Giá Tốt</title>
-</head>
-<head>
-
-
 	<!-- CSS
 	============================================ -->
 	<!-- Vendor CSS (Contain Bootstrap, Icon Fonts) -->
@@ -49,11 +53,10 @@
 		<div class="menu" data-show="0">
 			<div class="d-flex h-100 justify-content-center align-items-center">
 				<ul>
-					<li class="active"><a href="index.html"> Trang chủ </a></li>
+					<li><a href="@Url.Action("Index", "Home")"> Trang chủ </a></li>
 					@await Component.InvokeAsync("MenuTop")
 					<li>
-						<a href="#" id="open-search" class="search-menu" data-toggle="search-form">Search</a>
-
+					<a href="#" id="open-search" class="search-menu" data-toggle="search-form">Search</a>
 					</li>
 				</ul>
 			</div>
@@ -76,11 +79,11 @@
 			<div class="site-nav-container-last">
 				<p class="title">Tìm kiếm</p>
 				<div class="search-box wpo-wrapper-search">
-					<form action="/search" class="searchform searchform-categoris ultimate-search navbar-form">
+					<form method="get" action="/search" class="searchform searchform-categoris ultimate-search navbar-form">
 						<div class="wpo-search-inner">
-							<input type="hidden" name="type" value="product">
-							<input required="" id="inputSearchAuto" name="q" maxlength="40" autocomplete="off"
-								   class="searchinput input-search search-input" type="text" size="20"
+							@* <input type="hidden" name="searchQuery" value="@ViewBag.SearchQuery"> *@
+							<input required="" id="inputSearchAuto" name="searchQuery" maxlength="40" autocomplete="off"
+								   class="searchinput input-search search-input" type="text" size="20" value=" @ViewBag.SearchQuery"
 								   placeholder="Tìm kiếm sản phẩm...">
 						</div>
 						<button type="submit" class="btn-search btn" id="search-header-btn">
@@ -100,7 +103,6 @@
 		</button>
 	</div>
 	<div id="site-overlay" class="site-overlay"></div>
-
 	<!-- FOOTER -->
 	<footer class="w-100" style="background:#363636">
 		<div class="container">
@@ -179,42 +181,53 @@
 <script src="~/assets/js/plugins/parallax.min.js"></script>
 <script src="~/assets/js/plugins/jquery.magnific-popup.min.js"></script>
 
+
 <!--Main JS (Common Activation Codes)-->
 <script src="~/assets/js/main.js"></script>
+
+<!-- Script -->
+<script type="text/javascript" src="~/js/javascript.js"></script>
+
+</html>
+
+
 
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/bf61fecb7c.js" crossorigin="anonymous"></script>
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
 <!-- JQuery -->
 <script type="text/javascript" src="~/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="~/js/jquery-migrate-1.2.1.min.js"></script>
 <!-- Slick -->
 <script type="text/javascript" src="~/slick/slick/slick.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-		crossorigin="anonymous"></script>
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 <script>
-	document.getElementById('site-close-handle').addEventListener('click', function () {
-		// Đóng class search-sidebar
-		document.getElementById('search-nav').classList.remove('search-sidebar');
-		// Hoặc ẩn phần tử
-		// document.getElementById('search-nav').style.display = 'none';
+    document.getElementById('site-close-handle').addEventListener('click', function () {
+        // Đóng class search-sidebar
+        document.getElementById('search-nav').classList.remove('search-sidebar');
+        // Hoặc ẩn phần tử
+        // document.getElementById('search-nav').style.display = 'none';
 
-		// Mở class chính bằng cách thêm class mới vào body
-		document.body.classList.add('box-body');
+        // Mở class chính bằng cách thêm class mới vào body
+        document.body.classList.add('box-body');
+    });
+</script>
+<script>
+		$(document).ready(function(){
+		$('.slide-partner').slick({
+			slidesToShow: 5,
+		});
 	});
 
-
-
 </script>
-<!-- Script -->
-<script type="text/javascript" src="~/js/javascript.js"></script>
-
-</html>

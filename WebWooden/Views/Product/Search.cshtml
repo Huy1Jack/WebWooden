@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TbProduct>
+
+@if (Model.Any())
+{
+        <div class="container">
+            <div class="box-search">
+                <h1 class="header-search"> Kết quả tìm kiếm </h1>
+                <div class="subtext-result d-flex justify-content-between">
+                    <div class="subtxt-key">
+                        <p>Kết quả tìm kiếm cho <strong>"từ khóa"</strong></p>
+                    </div>
+                    <div class="subtxt-count">
+                        <p>Có @Model.Count() sản phẩm cho tìm kiếm</p>
+                    </div>
+                </div>
+                <div class="row search-list-results">
+    @foreach (var product in Model)
+    {
+                    string sUrl = $"/product/{product.Alias}-{product.ProductId}.html";
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="product">
+                            <div class="img">
+                                <a href="@sUrl">
+                                    <img src="~/images/AnhCat/@product.Image" alt="Bàn Làm Việc" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="info">
+                                <p class="name"><a href="@sUrl"> @product.Title</a></p>
+                                <p class="vote">
+                                    @for (var i = 0; i < product.Star; i++)
+                                    {
+                                        <span><i class="fas fa-star" aria-hidden="true"></i></span>
+                                    }
+                                </p>
+                                <p class="desc">(Size vừa, trắng nâu) </p>
+
+                                <p class="price"><span>@product.Price</span> VNĐ </p>
+                            </div>
+                        </div>
+                    </div>
+
+          
+    }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Không tìm thấy sản phẩm phù hợp.</p>
+}
+

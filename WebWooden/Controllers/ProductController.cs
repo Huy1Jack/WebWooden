@@ -44,6 +44,28 @@ namespace WebWooden.Controllers
                 .OrderByDescending(m => m.ProductId).ToList();
             return View(product);
         }
+        [HttpGet]
+        public IActionResult Search(string searchQuery)
+        {
+            var products = string.IsNullOrEmpty(searchQuery)
+                ? _Context.TbProducts.ToList()
+                : _Context.TbProducts.Where(p => p.Title.Contains(searchQuery)).ToList();
+
+            ViewBag.SearchQuery = searchQuery;
+            return View(products);
+        }
+        //public IActionResult Index(string searchQuery)
+        //{
+        //    var products = string.IsNullOrEmpty(searchQuery)
+        //        ? _Context.TbProducts.ToList()
+        //        : _Context.TbProducts
+        //            .Where(p => p.Title.Contains(searchQuery) || p.Alias.Contains(searchQuery))
+        //            .ToList();
+
+        //    ViewBag.SearchQuery = searchQuery;
+        //    return View(products);
+        //}
+        
         public IActionResult comment(string _Name, string _Phone, string _Email, string _Detail, int _Star)
         {
             TbProductReview comment = new TbProductReview() { };

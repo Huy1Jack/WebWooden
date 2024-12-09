@@ -20,7 +20,11 @@ public partial class WoodContext : DbContext
 
     public virtual DbSet<TbBlogComment> TbBlogComments { get; set; }
 
+    public virtual DbSet<TbCartItem> TbCartItems { get; set; }
+
     public virtual DbSet<TbCategory> TbCategories { get; set; }
+
+    public virtual DbSet<TbContact> TbContacts { get; set; }
 
     public virtual DbSet<TbCustomer> TbCustomers { get; set; }
 
@@ -41,7 +45,6 @@ public partial class WoodContext : DbContext
     public virtual DbSet<TbProductReview> TbProductReviews { get; set; }
 
     public virtual DbSet<TbUser> TbUsers { get; set; }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -81,6 +84,16 @@ public partial class WoodContext : DbContext
             entity.Property(e => e.Phone).HasMaxLength(20);
         });
 
+        modelBuilder.Entity<TbCartItem>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("tb_CartItem");
+
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 0)");
+        });
+
         modelBuilder.Entity<TbCategory>(entity =>
         {
             entity.HasKey(e => e.CategoryId);
@@ -89,6 +102,23 @@ public partial class WoodContext : DbContext
 
             entity.Property(e => e.CreatedBy).HasColumnType("datetime");
             entity.Property(e => e.ModifiedBy).HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<TbContact>(entity =>
+        {
+            entity.HasKey(e => e.ContactId);
+
+            entity.ToTable("tb_Contact");
+
+            entity.Property(e => e.CreatedBy).HasMaxLength(255);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.ModifiedBy).HasMaxLength(255);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.Phone)
+                .HasMaxLength(10)
+                .IsFixedLength();
         });
 
         modelBuilder.Entity<TbCustomer>(entity =>

@@ -27,23 +27,23 @@ namespace WebWooden.Controllers
             {
                 return NotFound();
             }
-            var product = await _Context.TbProducts.Where(m => (bool)m.IsActive).Where(m => (bool)m.IsNew)
+
+            // Lấy sản phẩm
+            var product = await _Context.TbProducts
+                .Where(m => m.IsActive == true && m.IsNew == true)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
+
             if (product == null)
             {
                 return NotFound();
             }
-            idproduct = id;
-            aliasproduct = product.Alias;
-            var productReviews = _Context.TbProductReviews
-            .Where(m => m.ProductId == id && m.IsActive == true)
-            .ToList() ?? new List<TbProductReview>();
-            ViewBag.productReviews = productReviews;
-            ViewBag.productRelated = _Context.TbProducts
-                .Where(m => m.ProductId != id && m.CategoryProductId == product.CategoryProductId)
-                .OrderByDescending(m => m.ProductId).ToList();
-            return View(product);
+
+            // Nếu View yêu cầu danh sách sản phẩm, tạo danh sách với 1 phần tử
+            var productList = new List<TbProduct> { product };
+
+            return View(productList); // Truyền danh sách thay vì một đối tượng
         }
+
         [HttpGet]
         public IActionResult Search(string searchQuery)
         {

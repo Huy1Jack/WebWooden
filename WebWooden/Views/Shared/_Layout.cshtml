@@ -31,7 +31,7 @@
 	<!-- Vendor CSS (Contain Bootstrap, Icon Fonts) -->
 	<link rel="stylesheet" href="~/assets/css/vendor/font-awesome.min.css" />
 	<link rel="stylesheet" href="~/assets/css/vendor/Pe-icon-7-stroke.css" />
-
+	<link href="~/assets/toastr/toastr.css" rel="stylesheet" />
 	<!-- Plugin CSS (Global Plugins Files) -->
 	<link rel="stylesheet" href="~/assets/css/plugins/animate.min.css">
 	<link rel="stylesheet" href="~/assets/css/plugins/jquery-ui.min.css">
@@ -184,10 +184,10 @@
 
 <!--Main JS (Common Activation Codes)-->
 <script src="~/assets/js/main.js"></script>
-
+<script src="~/assets/toastr/toastr.min.js"></script>
 <!-- Script -->
 <script type="text/javascript" src="~/js/javascript.js"></script>
-
+@RenderSection("Scripts", required: false)
 </html>
 
 

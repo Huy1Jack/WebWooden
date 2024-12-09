@@ -1,24 +1,10 @@
 ﻿@model TbProduct
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	List<TbProductReview> productReviews = ViewBag.productReviews;
-	List<TbProduct> productRelated = ViewBag.productRelated;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<TbProductReview> productReviews = ViewBag.productReviews;
+    List<TbProduct> productRelated = ViewBag.productRelated;
 
 }
-
-<!-- CONTENT -->
-		@* <div class="container">
-			<div class="breadcumb">
-				<div class="d-flex align-items-center">
-					<p> <a href="#">Trang chủ </a> </p>
-					<span> <i class="fas fa-angle-right"></i> </span>
-					<p><a href="#">PHÒNG KHÁCH</a></p>
-					<span> <i class="fas fa-angle-right"></i> </span>
-					<p> <a href="#"> Chi tiết sản phẩm </a> </p>
-				</div>
-			</div>
-		</div>
- *@
 
 <main class="main-content">
     <div class="breadcrumb-area breadcrumb-height" data-bg-image="~/assets/images/breadcrumb/bg/1-1-1920x373.jpg">
@@ -305,41 +291,41 @@
             </div>
         </div>
     </div>
-   
+
 </main>
 
-		<div class="relate-product-wrapper container">
-			<div class="relate-product">
-				<div class="d-flex justify-content-between header-re-prod">
-					<h2> Sản phẩm tương tự  </h2>
-				</div>
-				<div class="box-relate-product">
-					<div class="row">
-						@foreach (var item in productRelated)
-						{
+<div class="relate-product-wrapper container">
+    <div class="relate-product">
+        <div class="d-flex justify-content-between header-re-prod">
+            <h2> Sản phẩm tương tự  </h2>
+        </div>
+        <div class="box-relate-product">
+            <div class="row">
+                @foreach (var item in productRelated)
+                {
                     string sUrl = $"/product/{item.Alias}-{item.ProductId}.html";
-							<div class="col-lg-3 col-sm-6">
-								<div class="product">
-									<div class="img">
-										<img src="~/images/AnhCat/@item.Image" alt="@item.Alias" class="img-fluid">
-									</div>
-									<div class="info">
-										<p class="name"> <a href="@sUrl" title="@item.Alias">@item.Title</a>   </p>
-										<p class="vote">
-											@for (var i = 0; i < item.Star; i++)
-											{
-												<span><i class="fas fa-star"></i></span>
-											}
-										</p>
-										<p class="desc"> (4 ngăn ,Gỗ lim)</p>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="product">
+                            <div class="img">
+                                <img src="~/images/AnhCat/@item.Image" alt="@item.Alias" class="img-fluid">
+                            </div>
+                            <div class="info">
+                                <p class="name"> <a href="@sUrl" title="@item.Alias">@item.Title</a>   </p>
+                                <p class="vote">
+                                    @for (var i = 0; i < item.Star; i++)
+                                    {
+                                        <span><i class="fas fa-star"></i></span>
+                                    }
+                                </p>
+                                <p class="desc"> (4 ngăn ,Gỗ lim)</p>
 
-										<p class="price"> <span>@item.Price</span> VNĐ </p>
-									</div>
-								</div>
-							</div>
-						}
-					</div>
-				</div>
-			</div>
-		</div>
+                                <p class="price"> <span>@item.Price</span> VNĐ </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 

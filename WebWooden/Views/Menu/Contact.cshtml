@@ -1,4 +1,8 @@
-﻿<!-- BANNER -->
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- BANNER -->
 <div class="banner-abt-wrap">
 	<div class="img">
 		<img src="~/images/AnhCat/banner-lien-he.png" alt="Liên hệ với xưởng mộc giá tốt" class="w-100">
@@ -22,14 +26,24 @@
 					<div class="col-lg-6">
 						<div class="content">
 							<p class="title lien-he mb-2"> liên hệ với chúng tôi  </p>
+							<div class="contact-form-wrap">
 							<div class="form-group lien-he">
-								<input type="text" name="TITLE" placeholder="Họ và tên">
-								<input type="text" name="EMAIL" placeholder="Email">
-								<input type="text" name="PHONE" placeholder="Số điện thoại">
-								<input type="text" name="CONTENT" placeholder="Nội dung">
-								<br>
-								<button class="contact-send"> Gửi </button>
+									<form style="position: relative; top: 102px;" id="contact-form">
+										<input type="text" id="c_name" placeholder="Họ và tên" class="input-field" required>
+										<input type="email" id="c_phone" placeholder="Email" class="input-field" required>
+										<input type="text" id="c_email" placeholder="Số điện thoại" class="input-field" required>
+										<input type="text" id="c_message" placeholder="Nội dung" class="input-field" required>
+										<br>
+										<button type="button" id="c_submit" value="submit" class="contact-send"> Gửi </button>
+										<p id="error-message" style="color: red; display: none;">Vui lòng điền đầy đủ thông tin.</p>
+									</form>
+
+									
+
 							</div>
+							</div>
+							<p class="form-messege mt-3 mb-0" id="message-box" style="display: none;"></p>
+
 						</div>
 					</div>
 				</div>
@@ -37,3 +51,64 @@
 		</div>
 	</div>
 </div>
+@section Scripts {
+	<script>
+		$(document).ready(function() {
+			$("#c_submit").click(function() {
+				// Lấy giá trị từ các trường
+				var _name = $("#c_name").val().trim();
+				var _phone = $("#c_phone").val().trim();
+				var _email = $("#c_email").val().trim();
+				var _message = $("#c_message").val().trim();
+
+				// Kiểm tra các trường
+				if (!_name || !_phone || !_email || !_message) {
+					$("#error-message").show();
+				} else {
+					// Ẩn thông báo lỗi
+					$("#error-message").hide();
+
+					// Gửi dữ liệu qua AJAX
+					$.ajax({
+						url: "/Contact/contact",
+						type: "POST",
+						data: { name: _name, phone: _phone, email: _email, message: _message },
+						success: function(result) {
+							if (result != null) {
+								$("#c_name").val("");
+								$("#c_phone").val("");
+								$("#c_email").val("");
+								$("#c_message").val("");
+								toastr.success('Gửi thành công');
+							} else {
+								toastr.error('Gửi không thành công');
+							}
+						}
+					});
+				}
+			});
+		});
+	</script>
+
+	<script>
+		document.getElementById("c_submit").addEventListener("click", function () {
+			// Lấy giá trị từ các trường
+			const name = document.getElementById("c_name").value.trim();
+			const email = document.getElementById("c_phone").value.trim();
+			const phone = document.getElementById("c_email").value.trim();
+			const message = document.getElementById("c_message").value.trim();
+			const errorMessage = document.getElementById("error-message");
+
+			// Kiểm tra các trường
+			if (!name || !email || !phone || !message) {
+				errorMessage.style.display = "block";
+			} else {
+				errorMessage.style.display = "none";
+				// Tiến hành gửi form
+				alert("Gửi thông tin thành công!"); // Hoặc xử lý logic gửi form tại đây
+				document.getElementById("contact-form").submit();
+			}
+		});
+	</script>
+
+}

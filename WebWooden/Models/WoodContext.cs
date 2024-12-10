@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using WebWooden.Areas.Admin.Models;
 
 namespace WebWooden.Models;
 
@@ -46,6 +45,10 @@ public partial class WoodContext : DbContext
 
     public virtual DbSet<TbUser> TbUsers { get; set; }
 
+//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+//        => optionsBuilder.UseSqlServer("data source= DESKTOP-PA8283R; initial catalog=wood; integrated security=True; TrustServerCertificate=True;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TbBlog>(entity =>
@@ -82,6 +85,10 @@ public partial class WoodContext : DbContext
                 .HasColumnName("image");
             entity.Property(e => e.Name).HasMaxLength(255);
             entity.Property(e => e.Phone).HasMaxLength(20);
+
+            entity.HasOne(d => d.Blog).WithMany(p => p.TbBlogComments)
+                .HasForeignKey(d => d.BlogId)
+                .HasConstraintName("FK_tb_BlogComment_tb_Blog");
         });
 
         modelBuilder.Entity<TbCartItem>(entity =>

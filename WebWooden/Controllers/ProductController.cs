@@ -20,7 +20,6 @@ namespace WebWooden.Controllers
             return View();
         }
         [Route("/product/{alias}-{id}.html")]
-
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _Context.TbProducts == null)
@@ -28,9 +27,11 @@ namespace WebWooden.Controllers
                 return NotFound();
             }
 
+            List<TbProduct> listproduct = _Context.TbProducts.Include(i => i.TbProductReviews).Include(i => i.CategoryProduct).Where(i => i.ProductId == id).ToList();
+
             // Lấy sản phẩm
-            var product = await _Context.TbProducts
-                .Where(m => m.IsActive == true && m.IsNew == true)
+            var product = await _Context.TbProducts.Include(m=>m.CategoryProduct).Include(m=>m.TbProductReviews)
+                .Where(m => m.IsActive == true)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
 
             if (product == null)
@@ -38,10 +39,11 @@ namespace WebWooden.Controllers
                 return NotFound();
             }
 
-            // Nếu View yêu cầu danh sách sản phẩm, tạo danh sách với 1 phần tử
-            var productList = new List<TbProduct> { product };
-
-            return View(productList); // Truyền danh sách thay vì một đối tượng
+            
+            ViewData["productRelated"] = _Context.TbProducts.Where(m => m.IsActive == true).Where(m=>m.ProductId != id).ToList();
+            idproduct = id;
+            aliasproduct = product.Alias;
+            return View(listproduct);
         }
 
         [HttpGet]

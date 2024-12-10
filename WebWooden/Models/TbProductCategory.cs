@@ -25,7 +25,7 @@ public partial class TbProductCategory
 
     public string? ModifiedBy { get; set; }
 
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; }
 
     public virtual ICollection<TbProduct> TbProducts { get; set; } = new List<TbProduct>();
 }

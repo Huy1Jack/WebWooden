@@ -13,7 +13,7 @@ public partial class TbCustomer
 
     public string? Email { get; set; }
 
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; }
 
     public virtual ICollection<TbOrder> TbOrders { get; set; } = new List<TbOrder>();
 }

@@ -26,19 +26,20 @@ namespace Harmic.Controllers
 				return NotFound();
 			}
 
-			var blog = await _context.TbBlogs.FirstOrDefaultAsync(m => m.BlogId == id);
+            var blog = await _context.TbBlogs.FirstOrDefaultAsync(m => m.BlogId == id);
+			ViewData["Blog"] = blog;
 			if (blog == null)
 			{
 				return NotFound();
 			}
+            List<TbProduct> listproduct = _context.TbProducts.Include(i => i.TbProductReviews).Include(i => i.CategoryProduct).Where(i => i.ProductId == id).ToList();
 			idblog = id;
-			aliasblog = blog.Alias;
-			// Gán danh sách bình luận đúng kiểu vào ViewBag
-			ViewBag.blogComment = await _context.TbBlogComments
-				.Where(c => c.BlogId == id)
-				.ToListAsync();
+            aliasblog = blog.Alias;
+            ViewBag.blogComment = await _context.TbBlogComments
+                .Where(c => c.BlogId == id)
+                .ToListAsync();
 
-			return View(blog);
+            return View(listproduct);
 		}
 
 

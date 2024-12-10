@@ -29,5 +29,5 @@ public partial class TbCategory
 
     public DateTime? ModifiedBy { get; set; }
 
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; }
 }

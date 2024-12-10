@@ -18,7 +18,7 @@ namespace WebWooden.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(TbUser user)
+        public IActionResult Index(WebWooden.Models.TbUser user)
         {
             if (user == null) {
             return NotFound();

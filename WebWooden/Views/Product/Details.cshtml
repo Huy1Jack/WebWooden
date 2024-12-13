@@ -90,21 +90,31 @@
                                 <p class="short-desc mb-6">
                                     @product.Description
                                 </p>
-                                <ul class="quantity-with-btn pb-7">
-                                    <li class="quantity">
-                                        <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" value="1" type="text">
+                                <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                                    <!-- Ẩn input để chứa ID sản phẩm -->
+                                    <input type="hidden" name="productId" value="@product.ProductId" />
+
+                                    <!-- Điều chỉnh số lượng sản phẩm -->
+                                    <div class="input-group quantity mb-3" style="width: 150px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-minus bg-light border" type="button" onclick="decreaseQuantity(this)">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
                                         </div>
-                                    </li>
-                                    <li class="add-to-cart">
-                                        <a class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0" href="cart.html">Add to cart</a>
-                                    </li>
-                                    <li class="wishlist-btn-wrap">
-                                        <a class="btn rounded-0" href="wishlist.html">
-                                            <i class="pe-7s-like"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                        <input type="text" class="form-control form-control-sm text-center border-0" name="quantity" value="1" />
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-plus bg-light border" type="button" onclick="increaseQuantity(this)">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Nút thêm vào giỏ hàng -->
+                                    <button type="submit" class="btn btn-primary rounded-pill px-4 py-2" asp-controller="Cart" asp-action="AddToCart"   >
+                                        <i class="fa fa-shopping-bag me-2"></i> Thêm vào giỏ hàng
+                                    </button>
+                                </form>
+
                                 <div class="product-category text-matterhorn pb-2">
                                     <span class="title">Categories :</span>
                                     <ul>
@@ -331,4 +341,20 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <script>
+        function increaseQuantity(button) {
+            var input = button.closest('.quantity').querySelector('input[name="quantity"]');
+            var currentValue = parseInt(input.value) || 1;
+            input.value = currentValue + 1;
+        }
 
+        function decreaseQuantity(button) {
+            var input = button.closest('.quantity').querySelector('input[name="quantity"]');
+            var currentValue = parseInt(input.value) || 1;
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+            }
+        }
+    </script>
+}

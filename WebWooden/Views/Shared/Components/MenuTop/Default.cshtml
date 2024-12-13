@@ -1,11 +1,19 @@
 ﻿@model IEnumerable<WebWooden.Models.TbMenu>
-
+@{
+    IEnumerable<TbCartItem> miniCart = ViewBag.miniCart;
+}
 <ul>
     @foreach (var item in Model.Where(i => i.Levels == 1))
     {
-        <li >
-            <a  href="@Url.Action(item.Alias, "Menu")">@item.Title</a>
+        <li>
+            <a href="@Url.Action(item.Alias, "Menu")">@item.Title</a>
         </li>
     }
+    <li>
+        <a asp-controller="Cart" asp-action="Index" class="position-relative me-4 my-auto">
+            <i style="color: #010101" class="fa fa-shopping-bag fa-x"></i>
+            <span class="position-absolute bg-info rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">@miniCart.Count()</span>
+        </a>
+    </li>
 </ul>
 

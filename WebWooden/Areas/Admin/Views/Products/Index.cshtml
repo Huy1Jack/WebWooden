@@ -63,10 +63,10 @@
                                             <td>@Html.DisplayFor(modelItem => item.Price)</td>
                                             <td>@Html.DisplayFor(modelItem => item.PriceSale)</td>
                                             <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
-                                            @* <td>@Html.CheckBoxFor(modelItem => item.IsNew)</td> *@
-                                            @* <td>@Html.CheckBoxFor(modelItem => item.IsBestSeller, new { @disabled = "disabled" })</td> *@
-                                            @* <td>@Html.DisplayFor(modelItem => item.Star)</td> *@
-                                            @* <td>@Html.CheckBoxFor(modelItem => item.IsActive, new { @disabled = "disabled" })</td> *@
+                                            <td>@Html.CheckBoxFor(modelItem => item.IsNew, new { @disabled = "disabled" }))</td>
+                                            <td>@Html.CheckBoxFor(modelItem => item.IsBestSeller, new { @disabled = "disabled" })</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Star)</td>
+                                            <td>@Html.CheckBoxFor(modelItem => item.IsActive, new { @disabled = "disabled" })</td>
                                             <td>
                                                 <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary">Sửa</a>
                                                  <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info">Chi tiết</a>

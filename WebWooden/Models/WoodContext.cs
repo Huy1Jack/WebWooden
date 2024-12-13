@@ -93,12 +93,23 @@ public partial class WoodContext : DbContext
 
         modelBuilder.Entity<TbCartItem>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("tb_CartItem");
+            entity.HasKey(e => e.CartItemId);
 
+            entity.ToTable("tb_CartItem");
+
+            entity.Property(e => e.CartItemId).HasColumnName("CartItemID");
+            entity.Property(e => e.AddedDate).HasColumnType("datetime");
+            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+            entity.Property(e => e.Image).HasColumnName("image");
             entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
-            entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 0)");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.TbCartItems)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("FK_tb_CartItem_tb_Customer");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.TbCartItems)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("FK_tb_CartItem_tb_Product");
         });
 
         modelBuilder.Entity<TbCategory>(entity =>

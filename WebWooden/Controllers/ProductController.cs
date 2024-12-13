@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata;
 using WebWooden.Models;
-
+using WebWooden.Helpes;
 
 namespace WebWooden.Controllers
 {
@@ -86,6 +85,30 @@ namespace WebWooden.Controllers
             string surl = $"/product/{aliasproduct}-{idproduct}.html";
             return Redirect(surl);
         }
+        //[HttpPost]
+        //public IActionResult AddToCart(int id, int quantity)
+        //{
+        //    // Xử lý logic thêm sản phẩm vào giỏ hàng
+        //    // Ví dụ:
+        //    var product = _Context.TbProducts.Find(id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var cartItem = new TbCartItem
+        //    {
+        //        ProductId = id,
+        //        Quantity = quantity,
+        //        Price = product.Price
+        //    };
+
+        //    // Thêm vào session hoặc database (tùy logic)
+        //    AddToCartSession(cartItem);
+
+        //    // Chuyển hướng người dùng sau khi thêm
+        //    return RedirectToAction("Index", "Cart");
+        //}
 
 
     }

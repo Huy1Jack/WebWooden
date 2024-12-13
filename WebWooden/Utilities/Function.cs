@@ -49,5 +49,12 @@ namespace WebWooden.Utilities
                 return false;
             return true;
         }
+
+        public static bool CustomerIsLogin()
+        {
+            if (string.IsNullOrEmpty(Function._CustomerName) || string.IsNullOrEmpty(Function._EmailCustomer) || (Function._CustomerID <= 0))
+                return false;
+            return true;
+        }
     }
 }

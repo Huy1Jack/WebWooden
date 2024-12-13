@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using WebWooden.Models;
+using WebWooden.Utilities;
 
 namespace Harmic.ViewComponents
 {
@@ -15,6 +16,7 @@ namespace Harmic.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            ViewData["miniCart"] = _context.TbCartItems.Where(i=>i.CustomerId == Function._CustomerID).ToList();
             var items = _context.TbMenus.Where(m => (bool)m.IsActive).
                 OrderBy(m => m.Position).ToList();
             return await Task.FromResult<IViewComponentResult>(View(items));

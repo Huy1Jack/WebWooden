@@ -15,5 +15,7 @@ public partial class TbCustomer
 
     public bool IsActive { get; set; }
 
+    public virtual ICollection<TbCartItem> TbCartItems { get; set; } = new List<TbCartItem>();
+
     public virtual ICollection<TbOrder> TbOrders { get; set; } = new List<TbOrder>();
 }

@@ -4,6 +4,13 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+<style>
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+</style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -63,7 +70,7 @@
                                             <td>@Html.DisplayFor(modelItem => item.Price)</td>
                                             <td>@Html.DisplayFor(modelItem => item.PriceSale)</td>
                                             <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
-                                            <td>@Html.CheckBoxFor(modelItem => item.IsNew, new { @disabled = "disabled" }))</td>
+                                            <td>@Html.CheckBoxFor(modelItem => item.IsNew, new { @disabled = "disabled" })</td>
                                             <td>@Html.CheckBoxFor(modelItem => item.IsBestSeller, new { @disabled = "disabled" })</td>
                                             <td>@Html.DisplayFor(modelItem => item.Star)</td>
                                             <td>@Html.CheckBoxFor(modelItem => item.IsActive, new { @disabled = "disabled" })</td>
